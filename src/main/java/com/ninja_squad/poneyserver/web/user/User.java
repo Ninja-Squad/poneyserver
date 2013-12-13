@@ -1,7 +1,7 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.user;
 
 /**
- * TODO include class javadoc here
+ * A user of the application
  * @author JB Nizet
  */
 public class User {

@@ -1,7 +1,7 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.security;
 
 /**
- * TODO include class javadoc here
+ * The credentials of a user, used during authentication
  * @author JB Nizet
  */
 public class Credentials {

@@ -1,7 +1,7 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.race;
 
 /**
- * TODO include class javadoc here
+ * A bet on a poney for a given race.
  * @author JB Nizet
  */
 public class Bet {

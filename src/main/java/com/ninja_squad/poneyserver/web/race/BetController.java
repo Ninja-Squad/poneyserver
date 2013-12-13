@@ -1,5 +1,7 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.race;
 
+import com.ninja_squad.poneyserver.web.Database;
+import com.ninja_squad.poneyserver.web.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TODO include class javadoc here
+ * Controller allowing the user to place or remove bets on poneys in races. Only one poney of a race can have a bet
+ * from a given user. Placing a bet on another poney removes the previous bet, if any.
  * @author JB Nizet
  */
 @RestController
@@ -24,6 +27,9 @@ public class BetController {
     @Autowired
     private CurrentUser currentUser;
 
+    /**
+     * Places a bet. If the race has already started, a 400 response with an error message is sent.
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> placeBet(@RequestBody Bet bet) {
         Race race = database.getRace(bet.getRaceId());
@@ -35,9 +41,12 @@ public class BetController {
         }
 
         database.addBet(currentUser.getLogin(), bet);
-        return new ResponseEntity<String>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * Deletes a bet on a race.
+     */
     @RequestMapping(value = "/{raceId}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteBet(@PathVariable("raceId") Long raceId) {
         Race race = database.getRace(raceId);
@@ -46,6 +55,6 @@ public class BetController {
         }
 
         database.deleteBet(currentUser.getLogin(), raceId);
-        return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

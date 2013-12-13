@@ -1,11 +1,12 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.security;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- * TODO include class javadoc here
+ * The current user. This bean is a request-scope bean which is initialized by the authentication interceptor, thanks
+ * to the cookie sent in the request.
  * @author JB Nizet
  */
 @Component

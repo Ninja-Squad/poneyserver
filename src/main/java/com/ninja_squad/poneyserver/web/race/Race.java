@@ -1,10 +1,11 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.race;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * TODO include class javadoc here
+ * A race, which can be not started, started or finished, and which has 3 poneys.
  * @author JB Nizet
  */
 public class Race {
@@ -17,7 +18,7 @@ public class Race {
         this.id = id;
         this.name = name;
         this.status = status;
-        this.poneys = new HashSet<>(poneys);
+        this.poneys = Collections.unmodifiableSet(new HashSet<>(poneys));
     }
 
     public Long getId() {
@@ -28,11 +29,11 @@ public class Race {
         return name;
     }
 
-    public RaceStatus getStatus() {
+    public synchronized RaceStatus getStatus() {
         return status;
     }
 
-    public void setStatus(RaceStatus status) {
+    public synchronized void setStatus(RaceStatus status) {
         this.status = status;
     }
 

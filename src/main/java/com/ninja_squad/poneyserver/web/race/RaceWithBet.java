@@ -1,7 +1,7 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.race;
 
 /**
- * TODO include class javadoc here
+ * A race and the bet (which can be null) of the current user.
  * @author JB Nizet
  */
 public class RaceWithBet {

@@ -1,7 +1,7 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.race;
 
 /**
- * TODO include class javadoc here
+ * The status of a race
  * @author JB Nizet
  */
 public enum RaceStatus {

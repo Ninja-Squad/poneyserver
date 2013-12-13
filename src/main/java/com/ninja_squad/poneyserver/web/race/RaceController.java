@@ -1,5 +1,7 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.race;
 
+import com.ninja_squad.poneyserver.web.Database;
+import com.ninja_squad.poneyserver.web.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * TODO include class javadoc here
+ * Controller used to list the races and to show a race
  * @author JB Nizet
  */
 @RestController
@@ -23,11 +25,17 @@ public class RaceController {
     @Autowired
     private CurrentUser currentUser;
 
+    /**
+     * Lists all the races
+     */
     @RequestMapping(method = RequestMethod.GET)
     private List<Race> list() {
         return database.getRaces();
     }
 
+    /**
+     * Returns the race, with the potential bet of the current user, identified by the given ID.
+     */
     @RequestMapping(value = "/{raceId}", method = RequestMethod.GET)
     private RaceWithBet show(@PathVariable("raceId") Long raceId) {
         Race race = database.getRace(raceId);

@@ -1,5 +1,6 @@
-package com.ninja_squad.poneyserver.web;
+package com.ninja_squad.poneyserver.web.user;
 
+import com.ninja_squad.poneyserver.web.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,17 +23,24 @@ public class RegistrationController {
     @Autowired
     private Database database;
 
+    /**
+     * Registers a new user. A 400 response is sent with an error message if the login is already used by another user.
+     * @param user the user to register.
+     */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody User user) {
         for (User existing : database.getUsers()) {
             if (user.getLogin().equals(existing.getLogin())) {
-                return new ResponseEntity<String>("This login is already in use", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("This login is already in use", HttpStatus.BAD_REQUEST);
             }
         }
         database.addUser(user);
-        return new ResponseEntity<String>(user.getLogin(), HttpStatus.CREATED);
+        return new ResponseEntity<>(user.getLogin(), HttpStatus.CREATED);
     }
 
+    /**
+     * Lists all the registered users
+     */
     @RequestMapping(method = RequestMethod.GET)
     public List<User> list() {
         return database.getUsers();

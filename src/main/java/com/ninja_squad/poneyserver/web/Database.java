@@ -1,5 +1,9 @@
 package com.ninja_squad.poneyserver.web;
 
+import com.ninja_squad.poneyserver.web.race.Bet;
+import com.ninja_squad.poneyserver.web.race.Race;
+import com.ninja_squad.poneyserver.web.race.RaceStatus;
+import com.ninja_squad.poneyserver.web.user.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * TODO include class javadoc here
+ * The fake database, containing the races, bets and users.
  * @author JB Nizet
  */
 @Service
