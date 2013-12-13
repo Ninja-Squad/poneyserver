@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-webmvc:4.0.0.RELEASE'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.3'
+    testCompile 'junit:junit:4.11'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.10-rc-2'
+}
