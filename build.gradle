@@ -11,6 +11,7 @@ dependencies {
     compile 'org.springframework:spring-websocket:4.0.0.RELEASE'
     compile 'org.springframework:spring-messaging:4.0.0.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.2.3'
+    compile 'com.mangofactory:swagger-springmvc:0.6.5'
     testCompile 'junit:junit:4.11'
 }
 

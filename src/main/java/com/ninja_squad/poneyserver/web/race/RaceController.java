@@ -2,6 +2,7 @@ package com.ninja_squad.poneyserver.web.race;
 
 import com.ninja_squad.poneyserver.web.Database;
 import com.ninja_squad.poneyserver.web.security.CurrentUser;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class RaceController {
     /**
      * Lists all the races
      */
+    @ApiOperation("Lists the races")
     @RequestMapping(method = RequestMethod.GET)
     private List<Race> list() {
         return database.getRaces();
@@ -36,6 +38,7 @@ public class RaceController {
     /**
      * Returns the race, with the potential bet of the current user, identified by the given ID.
      */
+    @ApiOperation("Shows the details of the given race")
     @RequestMapping(value = "/{raceId}", method = RequestMethod.GET)
     private RaceWithBet show(@PathVariable("raceId") Long raceId) {
         Race race = database.getRace(raceId);

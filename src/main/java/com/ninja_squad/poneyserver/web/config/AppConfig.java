@@ -1,10 +1,12 @@
 package com.ninja_squad.poneyserver.web.config;
 
-import com.ninja_squad.poneyserver.web.security.AuthenticationInterceptor;
+import com.mangofactory.swagger.configuration.DocumentationConfig;
 import com.ninja_squad.poneyserver.web.WebPackage;
+import com.ninja_squad.poneyserver.web.security.AuthenticationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,6 +26,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebMvc
 @EnableWebSocketMessageBroker
 @ComponentScan(basePackageClasses = WebPackage.class)
+@Import({PropertyPlaceholderConfig.class, DocumentationConfig.class})
 public class AppConfig extends WebMvcConfigurerAdapter implements WebSocketMessageBrokerConfigurer {
 
     /**
@@ -62,7 +65,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements WebSocketMessa
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor())
                 .addPathPatterns("/**/*")
-                .excludePathPatterns("/users", "/authentication");
+                .excludePathPatterns("/users", "/authentication", "/api-docs*", "/api-docs/**/*", "/swagger/**/*");
     }
 
     @Bean

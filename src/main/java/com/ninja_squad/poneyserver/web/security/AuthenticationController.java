@@ -1,11 +1,13 @@
 package com.ninja_squad.poneyserver.web.security;
 
+import com.mangofactory.swagger.annotations.ApiError;
+import com.mangofactory.swagger.annotations.ApiErrors;
 import com.ninja_squad.poneyserver.web.Database;
 import com.ninja_squad.poneyserver.web.user.User;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,14 +33,16 @@ public class AuthenticationController {
      * is sent.
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> authenticate(@RequestBody Credentials credentials, HttpServletResponse response) {
+    @ApiOperation(value = "Authenticates a user and gets back a cookie in the response")
+    @ApiErrors(errors = @ApiError(code = 401, reason = "The credentials are incorrect"))
+    public String authenticate(@ApiParam(value = "The authentication credentials", required = true) @RequestBody Credentials credentials, HttpServletResponse response) {
         for (User user : database.getUsers()) {
             if (user.getLogin().equals(credentials.getLogin())
                 && user.getPassword().equals(credentials.getPassword())) {
                 response.addCookie(new Cookie("AUTH-COOKIE", user.getLogin()));
-                return new ResponseEntity<>(user.getLogin(), HttpStatus.OK);
+                return user.getLogin();
             }
         }
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        throw new UnauthorizedException();
     }
 }

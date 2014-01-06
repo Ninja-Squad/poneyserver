@@ -1,15 +1,19 @@
 package com.ninja_squad.poneyserver.web.race;
 
+import com.mangofactory.swagger.annotations.ApiError;
+import com.mangofactory.swagger.annotations.ApiErrors;
+import com.ninja_squad.poneyserver.web.BadRequestException;
 import com.ninja_squad.poneyserver.web.Database;
 import com.ninja_squad.poneyserver.web.security.CurrentUser;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,30 +35,34 @@ public class BetController {
      * Places a bet. If the race has already started, a 400 response with an error message is sent.
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> placeBet(@RequestBody Bet bet) {
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Places a bet on a poney in a race")
+    @ApiErrors(errors = @ApiError(code = 400, reason = "The race doesn't accept bets, or the poney is not part of the race"))
+    public void placeBet(@RequestBody Bet bet) {
         Race race = database.getRace(bet.getRaceId());
         if (race.getStatus() != RaceStatus.NOT_STARTED) {
-            return new ResponseEntity<>("The race doesn't accept bets anymore", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("The race doesn't accept bets anymore");
         }
         if (!race.getPoneys().contains(bet.getPoney())) {
-            throw new IllegalArgumentException("The poney is not part of the race");
+            throw new BadRequestException("The poney is not part of the race");
         }
 
         database.addBet(currentUser.getLogin(), bet);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
      * Deletes a bet on a race.
      */
     @RequestMapping(value = "/{raceId}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteBet(@PathVariable("raceId") Long raceId) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation("Cancels the current bet the given race")
+    @ApiErrors(errors = @ApiError(code = 400, reason = "The race doesn't accept bets"))
+    public void deleteBet(@PathVariable("raceId") Long raceId) {
         Race race = database.getRace(raceId);
         if (race.getStatus() != RaceStatus.NOT_STARTED) {
-            return new ResponseEntity<>("The race doesn't accept bets anymore", HttpStatus.BAD_REQUEST);
+           throw new BadRequestException("The race doesn't accept bets anymore");
         }
 
         database.deleteBet(currentUser.getLogin(), raceId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
