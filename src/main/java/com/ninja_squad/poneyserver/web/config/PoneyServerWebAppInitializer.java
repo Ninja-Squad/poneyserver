@@ -1,6 +1,9 @@
 package com.ninja_squad.poneyserver.web.config;
 
+import com.ninja_squad.poneyserver.web.security.CorsFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 /**
  * The Java-based webapp deployment descriptor
@@ -20,5 +23,10 @@ public class PoneyServerWebAppInitializer extends AbstractAnnotationConfigDispat
     @Override
     protected String[] getServletMappings() {
         return new String[] { "/" };
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[] {new CorsFilter()};
     }
 }
