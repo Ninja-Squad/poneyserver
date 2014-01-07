@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * The current user. This bean is a request-scope bean which is initialized by the authentication interceptor, thanks
- * to the cookie sent in the request.
+ * to the header sent in the request.
  * @author JB Nizet
  */
 @Component

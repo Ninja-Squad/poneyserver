@@ -57,7 +57,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements WebSocketMessa
     }
 
     /**
-     * Adds an interceptor to handle authentication. All the HTTP requests must have a cookie AUTH-COOKIE with their
+     * Adds an interceptor to handle authentication. All the HTTP requests must have a header Custom-Authentication with their
      * login as value to be able to access the resource. Otherwise, a 401 response is sent back. The only URLs that are
      * not intercepted are /users (used to register) and /authentication (used to authenticate)
      */
