@@ -10,6 +10,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private int birthYear;
 
     public String getLogin() {
         return login;
@@ -49,5 +50,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
     }
 }
