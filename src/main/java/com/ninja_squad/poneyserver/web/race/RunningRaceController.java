@@ -37,7 +37,7 @@ public class RunningRaceController {
     @ApiErrors(errors = @ApiError(code = 400, reason = "The race is already started or finished"))
     private void startRace(@RequestBody Long raceId) {
         Race race = database.getRace(raceId);
-        if (race.getStatus() == RaceStatus.NOT_STARTED) {
+        if (race.getStatus() == RaceStatus.READY) {
             raceRunner.startRace(race);
         }
         else {

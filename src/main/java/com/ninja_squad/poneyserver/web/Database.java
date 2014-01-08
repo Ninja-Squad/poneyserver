@@ -68,11 +68,20 @@ public class Database {
     }
 
     public Database() {
-        races.add(new Race(1L, "Course 1", RaceStatus.NOT_STARTED, randomPoneys()));
-        races.add(new Race(2L, "Course 2", RaceStatus.NOT_STARTED, randomPoneys()));
-        races.add(new Race(3L, "Course 3", RaceStatus.NOT_STARTED, randomPoneys()));
-        races.add(new Race(4L, "Course 4", RaceStatus.NOT_STARTED, randomPoneys()));
-        races.add(new Race(5L, "Course 5", RaceStatus.NOT_STARTED, randomPoneys()));
+        races.add(new Race(1L, "Course 1", RaceStatus.READY, randomPoneys()));
+        races.add(new Race(2L, "Course 2", RaceStatus.READY, randomPoneys()));
+        races.add(new Race(3L, "Course 3", RaceStatus.READY, randomPoneys()));
+        races.add(new Race(4L, "Course 4", RaceStatus.READY, randomPoneys()));
+        races.add(new Race(5L, "Course 5", RaceStatus.READY, randomPoneys()));
+
+        User cedric = new User();
+        cedric.setFirstName("Cédric");
+        cedric.setLastName("Exbrayat");
+        cedric.setLogin("ced");
+        cedric.setPassword("password");
+        cedric.setEmail("cedric@ninja-squad.com");
+        cedric.setBirthYear(1986);
+        users.add(cedric);
     }
 
     private static Set<String> randomPoneys() {

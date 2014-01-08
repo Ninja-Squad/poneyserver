@@ -40,7 +40,7 @@ public class BetController {
     @ApiErrors(errors = @ApiError(code = 400, reason = "The race doesn't accept bets, or the poney is not part of the race"))
     public void placeBet(@RequestBody Bet bet) {
         Race race = database.getRace(bet.getRaceId());
-        if (race.getStatus() != RaceStatus.NOT_STARTED) {
+        if (race.getStatus() != RaceStatus.READY) {
             throw new BadRequestException("The race doesn't accept bets anymore");
         }
         if (!race.getPoneys().contains(bet.getPoney())) {
@@ -59,7 +59,7 @@ public class BetController {
     @ApiErrors(errors = @ApiError(code = 400, reason = "The race doesn't accept bets"))
     public void deleteBet(@PathVariable("raceId") Long raceId) {
         Race race = database.getRace(raceId);
-        if (race.getStatus() != RaceStatus.NOT_STARTED) {
+        if (race.getStatus() != RaceStatus.READY) {
            throw new BadRequestException("The race doesn't accept bets anymore");
         }
 

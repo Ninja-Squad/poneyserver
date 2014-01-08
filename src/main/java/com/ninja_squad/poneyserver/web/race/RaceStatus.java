@@ -5,7 +5,7 @@ package com.ninja_squad.poneyserver.web.race;
  * @author JB Nizet
  */
 public enum RaceStatus {
-    NOT_STARTED,
+    READY,
     STARTED,
     FINISHED
 }
