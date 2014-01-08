@@ -33,7 +33,7 @@ public class RegistrationController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Registers a new user")
+    @ApiOperation(value = "Registers a new user, and returns its 'secret' authentication token")
     @ApiErrors(errors = @ApiError(code = 400, reason = "The login is already in use"))
     public String register(@RequestBody User user) {
         for (User existing : database.getUsers()) {
