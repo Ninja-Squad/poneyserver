@@ -26,18 +26,25 @@ public class CorsFilter implements Filter {
                          ServletResponse resp,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) resp;
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Access-Control-Allow-Credentials", "true");
-        response.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-        response.addHeader("Access-Control-Allow-Headers", "Content-Type,Custom-Authentication");
-
         HttpServletRequest request = (HttpServletRequest) req;
-        if (request.getMethod().equals(RequestMethod.OPTIONS.name())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        }
-        else {
+
+        if(request.getRequestURI().contains("info")){
+            response.addHeader("Access-Control-Allow-Credentials", "true");
+            response.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+            response.addHeader("Access-Control-Allow-Headers", "Content-Type,Custom-Authentication");
             chain.doFilter(request, response);
         }
+        else {
+            if (request.getMethod().equals(RequestMethod.OPTIONS.name())) {
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.addHeader("Access-Control-Allow-Credentials", "true");
+            response.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+            response.addHeader("Access-Control-Allow-Headers", "Content-Type,Custom-Authentication");
+            chain.doFilter(request, response);
+        }
+        
     }
 
     @Override
