@@ -1,0 +1,13 @@
+<form name="loginForm" role="form">
+  <div class="form-group">
+    <label>Login</label>
+    <input name="login" type="text" class="form-control" ng-required="true" ng-minlength="2" placeholder="Enter login" ng-model="credentials.login" ng-required="true">
+    <span ng-show="loginForm.login.$error.minlength">Your login should have at least 2 characters</span>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input name="password" type="password" class="form-control" placeholder="Password" ng-required="true" ng-model="credentials.password" ng-required="true">
+  </div>
+  <button ng-click="login(credentials)" class="btn btn-default" ng-disabled="loginForm.$invalid">Login</button>
+  <a ng-href="#" class="btn">Cancel</a>
+</form>

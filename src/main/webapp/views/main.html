@@ -1,0 +1,24 @@
+<div class="jumbotron">
+  <h1>Poney Racer</h1>
+  <p class="lead">
+    <img src="images/poneys.png" alt="I'm a Poney" style="width: 50%"><br>
+    Always a pleasure to bet on poneys.
+  </p>
+  <p ng-show="isLogged()">
+    <a class="btn btn-lg btn-success" ng-href="#races">Go to races!</a>
+    <a class="btn btn-lg btn-primary" ng-click="logout()">Logout</a>
+  </p>
+  <p ng-hide="isLogged()">
+    <a class="btn btn-lg btn-success" ng-href="#register">Register!</a>
+    <a class="btn btn-lg btn-primary" ng-href="#login">Login</a>
+  </p>
+</div>
+
+<div class="row text-center">
+  <h4>Already on Poney Racer :</h4>
+  <div ng-repeat="user in users">{{ user.firstName }} {{ user.lastName }}</div>
+</div>
+
+<div class="footer">
+  <p>♥ from the Ninja Squad team</p>
+</div>

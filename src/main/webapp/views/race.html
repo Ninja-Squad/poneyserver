@@ -1,0 +1,18 @@
+<h2>{{ race.race.name }}</h2>
+
+<div class="row">
+<div class="col-md-4">{{ race.race.status }}</div>
+<div class="col-md-2">
+<a class="btn btn-success" ng-click="start()">Start the race</a></div>
+</div>
+
+<div id="poneys">
+	<div class="row" ng-repeat="poney in race.race.poneys">
+		<div class="col-md-4"><poney name="{{ poney }}" betted="{{ poney === race.bettedPoney }}"/></div>
+		<div class="col-md-2" style="margin-top: 70px">
+			<a href="" class="btn btn-danger" ng-click="cancelBet()" ng-if="poney === race.bettedPoney">Cancel bet</a>
+			<a href="" class="btn btn-primary" ng-click="bet(poney)" ng-if="poney !== race.bettedPoney">Bet on {{ poney }}!</a>
+		</div>
+	</div>
+</div>
+

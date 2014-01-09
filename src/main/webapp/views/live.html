@@ -1,0 +1,5 @@
+<h4>{{ race.race.name }}</h4>
+
+<div class="row" ng-repeat="position in positions track by position.poney ">
+  <div style="transition: all linear 1s" ng-style="{ marginLeft: position.position*4 }"><poney name="{{ position.poney }}" betted="{{ position.poney === race.bettedPoney }}"></poney></div>
+</div>

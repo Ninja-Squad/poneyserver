@@ -1,0 +1,31 @@
+<form name="registerForm" role="form">
+   <div class="form-group">
+    <label ng-class="{ red: registerForm.firstname.$invalid && registerForm.firstname.$dirty }">Firstname</label>
+    <input id="firstname" name="firstname" type="text" class="form-control" placeholder="Enter firstname" ng-model="user.firstName" ng-required="true">
+  </div>
+  <div class="form-group">
+    <label ng-class="{ red: registerForm.lastname.$invalid && registerForm.lastname.$dirty }">Lastname</label>
+    <input id="lastname" name="lastname" type="text" class="form-control" placeholder="Enter lastname" ng-model="user.lastName" ng-required="true">
+  </div>
+  <div class="form-group">
+    <label ng-class="{ red: registerForm.birthyear.$invalid && registerForm.birthyear.$dirty }">Year of birth</label>
+    <input id="birthyear" name="birthyear" type="number" class="form-control" max="1995" placeholder="1995" ng-model="user.birthYear" ng-required="true">
+    <span ng-show="registerForm.birthyear.$error.max">You should be a grown-up to bet on poneys</span>
+  </div>
+  <div class="form-group">
+    <label id="login-label" ng-class="{ red: registerForm.login.$invalid && registerForm.login.$dirty }">Login</label>
+    <input id="login" name="login" type="text" class="form-control" ng-minlength="2" placeholder="Enter login" ng-model="user.login" ng-required="true">
+    <span id="login-warning" ng-show="registerForm.login.$error.minlength">Your login should have at least 2 characters</span>
+  </div>
+  <div class="form-group">
+    <label ng-class="{ red: registerForm.email.$invalid && registerForm.email.$dirty }">Email address</label>
+    <input id="email" name="email" type="email" class="form-control" placeholder="Enter email"ng-model="user.email" ng-required="true">
+    <span ng-show="registerForm.email.$error.email">You have to enter a valid email so we can spam you</span>
+  </div>
+  <div class="form-group">
+    <label ng-class="{ red: registerForm.password.$invalid && registerForm.password.$dirty }">Password</label>
+    <input id="password" name="password" type="password" class="form-control" placeholder="Enter password" ng-model="user.password" ng-required="true">
+  </div>
+  <button id="submit" ng-click="register(user)" class="btn btn-default" ng-disabled="registerForm.$invalid">Submit</button>
+  <a ng-href="#" class="btn">Cancel</a>
+</form>

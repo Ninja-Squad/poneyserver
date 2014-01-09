@@ -1,0 +1,28 @@
+<h2>Next races</h2>
+
+<div>
+	<div class="radio-inline">
+	  <label>
+	    <input type="radio" name="status" value="READY" ng-model="filter.status">
+	    Ready
+	  </label>
+	</div>
+	<div class="radio-inline">
+	  <label>
+	    <input type="radio" name="status" value="STARTED" ng-model="filter.status">
+	    Started
+	  </label>
+	</div>
+	<div class="radio-inline">
+	  <label>
+	    <input type="radio" name="status" value="FINISHED" ng-model="filter.status">
+	    Finished
+	  </label>
+	</div>
+</div>
+<div id="races">
+	<div ng-repeat="race in races | filter:filter">
+		<h4>{{ race.name }} {{ race.status }}</h4>
+		<a class="btn btn-primary" ng-href="#races/{{ race.id }}">Show race</a>
+	</div>
+</div>
