@@ -51,7 +51,7 @@ public class RaceRunner {
             while (positions.getMaxPosition() < 100) {
                 Thread.sleep(1000L);
                 for (RacePosition racePosition : positions.getPositions()) {
-                    racePosition.move(random.nextInt(3) + 1);
+                    racePosition.move(random.nextInt(5) + 1);
                 }
                 messagingTemplate.convertAndSend("/topic/" + race.getId(), positions);
             }
