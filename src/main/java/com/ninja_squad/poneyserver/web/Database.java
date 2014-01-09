@@ -27,7 +27,7 @@ public class Database {
 
     private Map<BetKey, String> bets = new ConcurrentHashMap<>();
 
-    private static final List<String> PONEYS = Arrays.asList("Red", "Green", "Yellow", "Pink", "Blue");
+    private static final List<String> PONEYS = Arrays.asList("Orange", "Purple", "Yellow", "Pink", "Blue", "White");
 
     private static class BetKey {
         private String login;
@@ -88,7 +88,7 @@ public class Database {
         List<String> list = new ArrayList<>(PONEYS);
         Collections.shuffle(list);
         Set<String> result = new HashSet<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             result.add(list.get(i));
         }
         return result;
