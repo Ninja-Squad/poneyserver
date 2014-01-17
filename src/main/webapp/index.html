@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html ng-app="test">
-    <head>
-        <title>Web socket test</title>
-        <script src="js/angular.min.js"></script>
-        <script src="js/stomp.min.js"></script>
-        <script src="js/sockjs-0.3.4.min.js"></script>
-        <script src="js/app.js"></script>
-    </head>
-    <body ng-controller="RaceCtrl">
-        <h1>Hello</h1>
-        <button type="button" id="startRace" ng-click="startRace()">Start race</button>
-        <div id="result">
-            {{ message }}
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Poney Server</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body style="padding-top: 100px;">
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Poney Server</h1>
+            <p class="lead">Ça marche !</p>
+            <p>Consultez <a href="swagger/">l'API des services disponibles</a>.</p>
+            <p>Pour repartir avec les données initiales, arrêtez et redémarrez le serveur.</p>
         </div>
-    </body>
+    </div>
+</body>
 </html>
