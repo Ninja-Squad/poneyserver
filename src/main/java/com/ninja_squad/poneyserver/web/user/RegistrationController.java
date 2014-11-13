@@ -1,5 +1,7 @@
 package com.ninja_squad.poneyserver.web.user;
 
+import java.util.List;
+
 import com.mangofactory.swagger.annotations.ApiError;
 import com.mangofactory.swagger.annotations.ApiErrors;
 import com.ninja_squad.poneyserver.web.BadRequestException;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * The controller which handle registration of new users
@@ -35,14 +35,14 @@ public class RegistrationController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Registers a new user, and returns its 'secret' authentication token")
     @ApiErrors(errors = @ApiError(code = 400, reason = "The login is already in use"))
-    public String register(@RequestBody User user) {
+    public Token register(@RequestBody User user) {
         for (User existing : database.getUsers()) {
             if (user.getLogin().equals(existing.getLogin())) {
                 throw new BadRequestException("This login is already in use");
             }
         }
         database.addUser(user);
-        return user.getLogin();
+        return new Token(user.getLogin());
     }
 
     /**
