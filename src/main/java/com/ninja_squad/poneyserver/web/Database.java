@@ -1,11 +1,5 @@
 package com.ninja_squad.poneyserver.web;
 
-import com.ninja_squad.poneyserver.web.race.Bet;
-import com.ninja_squad.poneyserver.web.race.Race;
-import com.ninja_squad.poneyserver.web.race.RaceStatus;
-import com.ninja_squad.poneyserver.web.user.User;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +9,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import com.ninja_squad.poneyserver.web.race.Bet;
+import com.ninja_squad.poneyserver.web.race.Race;
+import com.ninja_squad.poneyserver.web.race.RaceStatus;
+import com.ninja_squad.poneyserver.web.user.User;
+import org.springframework.stereotype.Service;
 
 /**
  * The fake database, containing the races, bets and users.
@@ -68,12 +68,10 @@ public class Database {
     }
 
     public Database() {
-        races.add(new Race(1L, "Course 1", RaceStatus.READY, randomPoneys()));
-        races.add(new Race(2L, "Course 2", RaceStatus.READY, randomPoneys()));
-        races.add(new Race(3L, "Course 3", RaceStatus.READY, randomPoneys()));
-        races.add(new Race(4L, "Course 4", RaceStatus.READY, randomPoneys()));
-        races.add(new Race(5L, "Course 5", RaceStatus.READY, randomPoneys()));
-
+        for (int i = 1; i <= 25; i++) {
+            RaceStatus status =  i > 20 ? RaceStatus.FINISHED : RaceStatus.READY;
+            races.add(new Race((long) i, "Course " + i, status, randomPoneys()));
+        }
         User cedric = new User();
         cedric.setFirstName("Cédric");
         cedric.setLastName("Exbrayat");
@@ -98,15 +96,15 @@ public class Database {
         users.add(user);
     }
 
-    public List<User> getUsers() {
+    public synchronized  List<User> getUsers() {
         return new ArrayList<>(users);
     }
 
-    public List<Race> getRaces() {
+    public synchronized List<Race> getRaces() {
         return new ArrayList<>(races);
     }
 
-    public Race getRace(Long raceId) {
+    public synchronized Race getRace(Long raceId) {
         for (Race race : races) {
             if (race.getId().equals(raceId)) {
                 return race;
@@ -115,17 +113,17 @@ public class Database {
         return null;
     }
 
-    public void addBet(String login, Bet bet) {
+    public synchronized void addBet(String login, Bet bet) {
         BetKey key = new BetKey(login, bet.getRaceId());
         bets.put(key, bet.getPoney());
     }
 
-    public void deleteBet(String login, Long raceId) {
+    public synchronized void deleteBet(String login, Long raceId) {
         BetKey key = new BetKey(login, raceId);
         bets.remove(key);
     }
 
-    public String getBettedPoney(String login, Long raceId) {
+    public synchronized String getBettedPoney(String login, Long raceId) {
         return bets.get(new BetKey(login, raceId));
     }
 }
