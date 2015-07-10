@@ -2,13 +2,13 @@ package com.ninja_squad.poneyserver.web.security;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.mangofactory.swagger.annotations.ApiError;
-import com.mangofactory.swagger.annotations.ApiErrors;
 import com.ninja_squad.poneyserver.web.Database;
 import com.ninja_squad.poneyserver.web.user.Token;
 import com.ninja_squad.poneyserver.web.user.User;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
  * REST controller for authentication
  * @author JB Nizet
  */
+@Api("Authentication")
 @RestController
-@RequestMapping(value = "/authentication", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/authentication", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
     @Autowired
@@ -34,8 +35,9 @@ public class AuthenticationController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Authenticates a user and gets back the 'secret' token in the response. This token must be passed in a header named 'Custom-Authentication' in all subsequent requests")
-    @ApiErrors(errors = @ApiError(code = 401, reason = "The credentials are incorrect"))
-    public Token authenticate(@ApiParam(value = "The authentication credentials", required = true) @RequestBody Credentials credentials, HttpServletResponse response) {
+    @ApiResponses(@ApiResponse(code = 401, message = "The credentials are incorrect"))
+    public Token authenticate(//@ApiParam(value = "The authentication credentials", required = true)
+                              @RequestBody Credentials credentials, HttpServletResponse response) {
         for (User user : database.getUsers()) {
             if (user.getLogin().equals(credentials.getLogin())
                 && user.getPassword().equals(credentials.getPassword())) {
