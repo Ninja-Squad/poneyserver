@@ -1,10 +1,11 @@
 package com.ninja_squad.poneyserver.web.race;
 
-import com.mangofactory.swagger.annotations.ApiError;
-import com.mangofactory.swagger.annotations.ApiErrors;
 import com.ninja_squad.poneyserver.web.BadRequestException;
 import com.ninja_squad.poneyserver.web.Database;
-import com.wordnik.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,8 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
  * second to all the websocket clients having subscribed to /topic/[id of the race].
  * @author JB Nizet
  */
+@Api("Start a race")
 @RestController
-@RequestMapping(value = "/running", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/running", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RunningRaceController {
     @Autowired
     private Database database;
@@ -34,7 +36,7 @@ public class RunningRaceController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Starts the given race")
-    @ApiErrors(errors = @ApiError(code = 400, reason = "The race is already started or finished"))
+    @ApiResponses(@ApiResponse(code = 400, message = "The race is already started or finished"))
     private void startRace(@RequestBody Long raceId) {
         Race race = database.getRace(raceId);
         if (race.getStatus() == RaceStatus.READY) {

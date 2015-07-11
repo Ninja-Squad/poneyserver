@@ -1,14 +1,14 @@
 package com.ninja_squad.poneyserver.web.security;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.ninja_squad.poneyserver.web.Database;
 import com.ninja_squad.poneyserver.web.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Interceptor which checks the presence and validity of a custome header (named Custom-Authentication),
@@ -30,11 +30,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                              Object handler) throws Exception {
         String token = request.getHeader("Custom-Authentication");
         if (token == null) {
-            response.sendError(HttpStatus.UNAUTHORIZED.value());
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), "You must be authenticated to access this resource");
             return false;
         }
         if (!tokenValid(token)) {
-            response.sendError(HttpStatus.UNAUTHORIZED.value());
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials");
             return false;
         }
 

@@ -1,8 +1,11 @@
 package com.ninja_squad.poneyserver.web.race;
 
+import java.util.List;
+
 import com.ninja_squad.poneyserver.web.Database;
 import com.ninja_squad.poneyserver.web.security.CurrentUser;
-import com.wordnik.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * Controller used to list the races and to show a race
  * @author JB Nizet
  */
+@Api("List and show races")
 @RestController
-@RequestMapping(value = "/races", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/races", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RaceController {
 
     @Autowired

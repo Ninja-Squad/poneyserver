@@ -1,20 +1,29 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
+
 apply plugin: 'java'
-apply plugin: 'war'
+apply plugin: 'spring-boot'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    providedCompile "javax.servlet:javax.servlet-api:3.0.1"
-    compile 'org.springframework:spring-webmvc:4.0.0.RELEASE'
-    compile 'org.springframework:spring-websocket:4.0.0.RELEASE'
-    compile 'org.springframework:spring-messaging:4.0.0.RELEASE'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.2.3'
-    compile 'com.mangofactory:swagger-springmvc:0.6.5'
+    compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-websocket:1.2.5.RELEASE'
+    compile "io.springfox:springfox-swagger2:2.0.2"
+    compile 'io.springfox:springfox-swagger-ui:2.0.2'
+
     testCompile 'junit:junit:4.11'
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.10-rc-2'
+    gradleVersion = '2.5'
 }
